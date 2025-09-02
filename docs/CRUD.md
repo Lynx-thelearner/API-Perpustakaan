@@ -80,8 +80,7 @@ Dokumentasi endpoint CRUD berdasarkan ERD E-Library
 
 | HTTP Method | URL Path                        | Kegunaan                               | Request Body | Expected Response | Butuh Auth |
 |-------------|---------------------------------|----------------------------------------|--------------|------------------|------------|
-| GET         | /pengembalian                   | Mendapatkan daftar pengembalian         | -            | `{"id_pengembalian": 1, "id_peminjaman": 5, "tgl_kembali": "2025-09-01", "denda": 5000.00}`
- | Anggota dan petugas |
+| GET         | /pengembalian                   | Mendapatkan daftar pengembalian         | -            | `{"id_pengembalian": 1, "id_peminjaman": 5, "tgl_kembali": "2025-09-01", "denda": 5000.00}` | Anggota dan petugas |
 | GET         | /pengembalian/{id_pengembalian} | Mendapatkan detail pengembalian tertentu| -            | Detail pengembalian (JSON) | Anggota dan petugas |
 | POST        | /pengembalian                   | Membuat data pengembalian baru          | `{ "id_peminjaman": 1, "tanggal_kembali": "2025-09-01", "denda": 5000 }` | Data pengembalian baru | petugas |
 | PUT         | /pengembalian/{id_pengembalian} | Update data pengembalian tertentu       | `{ "denda": 10000 }` | Data pengembalian setelah update | Petugas only |
