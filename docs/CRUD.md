@@ -8,10 +8,10 @@ Dokumentasi endpoint CRUD berdasarkan ERD E-Library
 
 | HTTP Method | URL Path              | Kegunaan                              | Request Body | Expected Response | Butuh Auth |
 |-------------|-----------------------|---------------------------------------|--------------|------------------|------------|
-| GET         | /anggota              | Mendapatkan daftar anggota             | -            | Daftar anggota dalam bentuk JSON | Yes |
+| GET         | /anggota              | Mendapatkan daftar anggota             | -            | `[{    "nama": "Diaz",    "alamat": "Samarinda",    "no_telp": "088877776666",    "email": "Email@diaz.com",    "id_anggota": 1  }]` | Yes |
 | GET         | /anggota/{id_anggota} | Mendapatkan detail anggota tertentu    | -            | Detail anggota (JSON) | Yes |
-| POST        | /anggota              | Menambahkan anggota baru               | `{ "nama": "string", "alamat": "string", "nomor_telpon": "string", "email": "string" }` | Data anggota baru | No |
-| PUT         | /anggota/{id_anggota} | Update data anggota tertentu           | `{ "nama": "string", "alamat": "string", "nomor_telpon": "string", "email": "string" }` | Data anggota setelah update | Yes |
+| POST        | /anggota              | Menambahkan anggota baru               | `{ "nama": "string", "alamat": "string", "no_telp": "string", "email": "string" }` | Data anggota baru | No |
+| PUT         | /anggota/{id_anggota} | Update data anggota tertentu           | `{ "nama": "string", "alamat": "string", "no_telp": "string", "email": "string" }` | Data anggota setelah update | Yes |
 | DELETE      | /anggota/{id_anggota} | Hapus data anggota tertentu            | -            | Pesan sukses (JSON) | Yes |
 
 ---
@@ -22,8 +22,8 @@ Dokumentasi endpoint CRUD berdasarkan ERD E-Library
 |-------------|------------------------|--------------------------------------|--------------|------------------|------------|
 | GET         | /petugas               | Mendapatkan daftar petugas            | -            | Daftar petugas (JSON) | Yes |
 | GET         | /petugas/{id_petugas}  | Mendapatkan detail petugas tertentu   | -            | Detail petugas (JSON) | Yes |
-| POST        | /petugas               | Menambahkan petugas baru              | `{ "nama": "string", "alamat": "string", "nomor_telpon": "string", "email": "string" }` | Data petugas baru | No |
-| PUT         | /petugas/{id_petugas}  | Update data petugas tertentu          | `{ "nama": "string", "alamat": "string", "nomor_telpon": "string", "email": "string" }` | Data petugas setelah update | Yes |
+| POST        | /petugas               | Menambahkan petugas baru              | `{ "nama": "string", "alamat": "string", "no_telp": "string", "email": "string" }` | Data petugas baru | No |
+| PUT         | /petugas/{id_petugas}  | Update data petugas tertentu          | `{ "nama": "string", "alamat": "string", "no_telp": "string", "email": "string" }` | Data petugas setelah update | Yes |
 | DELETE      | /petugas/{id_petugas}  | Hapus data petugas tertentu           | -            | Pesan sukses (JSON) | Yes |
 
 ---
@@ -46,8 +46,8 @@ Dokumentasi endpoint CRUD berdasarkan ERD E-Library
 |-------------|---------------------|----------------------------------------|--------------|------------------|------------|
 | GET         | /buku               | Mendapatkan daftar buku                 | -            | Daftar buku (JSON) | No |
 | GET         | /buku/{id_buku}     | Mendapatkan detail buku tertentu        | -            | Detail buku (JSON) | No |
-| POST        | /buku               | Menambahkan buku baru                   | `{ "judul": "string", "penulis": "string", "penerbit": "string", "tahun_terbit": 2023, "stok": 10, "id_kategori": 1 }` | Data buku baru | Yes |
-| PUT         | /buku/{id_buku}     | Update data buku tertentu               | `{ "judul": "string", "penulis": "string", "penerbit": "string", "tahun_terbit": 2023, "stok": 15, "id_kategori": 1 }` | Data buku setelah update | Yes |
+| POST        | /buku               | Menambahkan buku baru                   | `{ "judul": "string", "pengarang": "string", "penerbit": "string", "tahun_terbit": 2023, "stok": 10, "id_kategori": 1 }` | Data buku baru | Yes |
+| PUT         | /buku/{id_buku}     | Update data buku tertentu               | `{ "judul": "string", "pengarang": "string", "penerbit": "string", "tahun_terbit": 2023, "stok": 15, "id_kategori": 1 }` | Data buku setelah update | Yes |
 | DELETE      | /buku/{id_buku}     | Hapus data buku tertentu                | -            | Pesan sukses (JSON) | Yes |
 
 ---
