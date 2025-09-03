@@ -72,7 +72,7 @@ Dokumentasi endpoint CRUD berdasarkan ERD E-Library
 | GET         | /detailpeminjaman/{id_detail}    | Mendapatkan detail data tertentu        | -            | `{  "id_detail": 1,  "id_peminjaman": 5,  "id_buku": 101,  "jumlah": 2}` | Anggota dan petugas |
 | POST        | /detailpeminjaman                | Menambahkan detail peminjaman           | `{ "id_peminjaman": 1, "id_buku": 2, "jumlah": 1 }` | Data detail baru | Petugas only |
 | PUT         | /detailpeminjaman/{id_detail}    | Update data detail peminjaman tertentu  | `{ "jumlah": 3 }` | `{"id_detail": 1,  "id_peminjaman": 5,  "id_buku": 101,  "jumlah": 3}` | Petugas only |
-| DELETE      | /detailpeminjaman/{id_detail}    | Hapus data detail peminjaman tertentu   | -            | Pesan sukses (JSON) | Petugas only |
+| DELETE      | /detailpeminjaman/{id_detail}    | Hapus data detail peminjaman tertentu   | -            | `{"message": detail data peminjaman dengan id 1 berhasil dihapus"}` | Petugas only |
 
 ---
 
@@ -81,9 +81,9 @@ Dokumentasi endpoint CRUD berdasarkan ERD E-Library
 | HTTP Method | URL Path                        | Kegunaan                               | Request Body | Expected Response | Butuh Auth |
 |-------------|---------------------------------|----------------------------------------|--------------|------------------|------------|
 | GET         | /pengembalian                   | Mendapatkan daftar pengembalian         | -            | `{"id_pengembalian": 1, "id_peminjaman": 5, "tgl_kembali": "2025-09-01", "denda": 5000.00}` | Anggota dan petugas |
-| GET         | /pengembalian/{id_pengembalian} | Mendapatkan detail pengembalian tertentu| -            | Detail pengembalian (JSON) | Anggota dan petugas |
+| GET         | /pengembalian/{id_pengembalian} | Mendapatkan detail pengembalian tertentu| -            | `{"id_pengembalian": 1, "id_peminjaman": 5, "tgl_kembali": "2025-09-01", "denda": 5000.00}` | Anggota dan petugas |
 | POST        | /pengembalian                   | Membuat data pengembalian baru          | `{ "id_peminjaman": 1, "tanggal_kembali": "2025-09-01", "denda": 5000 }` | Data pengembalian baru | petugas |
-| PUT         | /pengembalian/{id_pengembalian} | Update data pengembalian tertentu       | `{ "denda": 10000 }` | Data pengembalian setelah update | Petugas only |
-| DELETE      | /pengembalian/{id_pengembalian} | Hapus data pengembalian tertentu        | -            | Pesan sukses (JSON) | Petugas only |
+| PUT         | /pengembalian/{id_pengembalian} | Update data pengembalian tertentu       | `{ "denda": 10000 }` | `{"id_pengembalian": 1, "id_peminjaman": 5, "tgl_kembali": "2025-09-01", "denda": 10000}` | Petugas only |
+| DELETE      | /pengembalian/{id_pengembalian} | Hapus data pengembalian tertentu        | -            | `{"message": Data pengembalian dengan id 1 berhasil dihapus"}` | Petugas only |
 
 ---
