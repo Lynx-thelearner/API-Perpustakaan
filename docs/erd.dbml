@@ -33,16 +33,11 @@ table peminjaman {
   id_peminjaman int [pk, increment]
   id_anggota int [ref: > anggota.id_anggota]
   id_petugas int [ref: > petugas.id_petugas]
+  id_buku int [ref: > buku.id_buku]
+  jumlah int
   tanggal_pinjam date
   tanggal_jatuh_tempo date
   status varchar
-}
-
-Table detailpeminjaman {
-  id_detail int [pk, increment]
-  id_peminjaman int [ref: > peminjaman.id_peminjaman]
-  id_buku int [ref: > buku.id_buku]
-  jumlah int
 }
 
 table pengembalian {

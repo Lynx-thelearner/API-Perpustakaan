@@ -56,23 +56,11 @@ Dokumentasi endpoint CRUD berdasarkan ERD E-Library
 
 | HTTP Method | URL Path                   | Kegunaan                               | Request Body | Expected Response | Butuh Auth |
 |-------------|----------------------------|----------------------------------------|--------------|------------------|------------|
-| GET         | /peminjaman                | Mendapatkan daftar peminjaman           | -            | `{"id_peminjaman": 12,  "id_anggota": 5,  "id_petugas": 2,  "tgl_pinjam": "2025-09-02",  "tgl_kembali": null,  "status": "dipinjam"}` | Anggota dan petugas |
-| GET         | /peminjaman/{id_peminjaman}| Mendapatka data peminjaman tertentu  | -            | `{"id_peminjaman": 12,  "id_anggota": 5,  "id_petugas": 2,  "tgl_pinjam": "2025-09-02",  "tgl_kembali": null,  "status": "dipinjam"}` | Anggota dan petugas |
-| POST        | /peminjaman                | Membuat data peminjaman baru            | `{ "id_anggota": 1, "id_petugas": 2, "tanggal_pinjam": "2025-09-01", "tanggal_jatuh_tempo": "2025-09-15", "status": "dipinjam" }` | Data peminjaman baru | Petugas only |
-| PUT         | /peminjaman/{id_peminjaman}| Update data peminjaman tertentu         | `{ "Tgl-kembali":"2025-09-03","status": "dikembalikan" }` | `{"id_peminjaman": 12,  "id_anggota": 5,  "id_petugas": 2,  "tgl_pinjam": "2025-09-02",  "tgl_kembali": 2025-09-03,  "status": "dikembalikan"}` | Petugas only |
+| GET         | /peminjaman                | Mendapatkan daftar peminjaman           | -            | `{"id_peminjaman": 12,  "id_anggota": 5,  "id_petugas": 2, "id_buku":1, "jml_buku":3,  "tgl_pinjam": "2025-09-02",  "tgl_kembali": null,  "status": "dipinjam"}` | Anggota dan petugas |
+| GET         | /peminjaman/{id_peminjaman}| Mendapatka data peminjaman tertentu  | -            | `{"id_peminjaman": 12,  "id_anggota": 5,  "id_petugas": 2, "id_buku":1, "jml_buku":3,  "tgl_pinjam": "2025-09-02",  "tgl_kembali": null,  "status": "dipinjam"}` | Anggota dan petugas |
+| POST        | /peminjaman                | Membuat data peminjaman baru            | `{ "id_anggota": 1, "id_petugas": 2, "id_buku":1, "jml_buku":3, "tanggal_pinjam": "2025-09-01", "tanggal_jatuh_tempo": "2025-09-15", "status": "dipinjam" }` | Data peminjaman baru | Petugas only |
+| PUT         | /peminjaman/{id_peminjaman}| Update data peminjaman tertentu         | `{ "Tgl-kembali":"2025-09-03","status": "dikembalikan" }` | `{"id_peminjaman": 12,  "id_anggota": 5,  "id_petugas": 2, "id_buku":1, "jml_buku":3,  "tgl_pinjam": "2025-09-02",  "tgl_kembali": 2025-09-03,  "status": "dikembalikan"}` | Petugas only |
 | DELETE      | /peminjaman/{id_peminjaman}| Hapus data peminjaman tertentu          | -            | `{"message": Data peminjaman dengan id 1 berhasil dihapus"}` | Petugas only |
-
----
-
-## Detail Peminjaman
-
-| HTTP Method | URL Path                         | Kegunaan                               | Request Body | Expected Response | Butuh Auth |
-|-------------|----------------------------------|----------------------------------------|--------------|------------------|------------|
-| GET         | /detailpeminjaman                | Mendapatkan daftar detail peminjaman    | -            | `{  "id_detail": 1,  "id_peminjaman": 5,  "id_buku": 101,  "jumlah": 2}` | Anggota dan petugas |
-| GET         | /detailpeminjaman/{id_detail}    | Mendapatkan detail data tertentu        | -            | `{  "id_detail": 1,  "id_peminjaman": 5,  "id_buku": 101,  "jumlah": 2}` | Anggota dan petugas |
-| POST        | /detailpeminjaman                | Menambahkan detail peminjaman           | `{ "id_peminjaman": 1, "id_buku": 2, "jumlah": 1 }` | Data detail baru | Petugas only |
-| PUT         | /detailpeminjaman/{id_detail}    | Update data detail peminjaman tertentu  | `{ "jumlah": 3 }` | `{"id_detail": 1,  "id_peminjaman": 5,  "id_buku": 101,  "jumlah": 3}` | Petugas only |
-| DELETE      | /detailpeminjaman/{id_detail}    | Hapus data detail peminjaman tertentu   | -            | `{"message": detail data peminjaman dengan id 1 berhasil dihapus"}` | Petugas only |
 
 ---
 
