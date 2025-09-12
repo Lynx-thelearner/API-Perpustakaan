@@ -1,12 +1,12 @@
-from pydantic import BaseModel, field
+from pydantic import BaseModel, Field
 from typing import Optional
 
 class BukuBase(BaseModel):
-    judul: str = field(..., description="Judul buku")
-    pengarang: str = field(..., description="Nama pengarang buku")
-    penerbit: str = field(..., description="Nama penerbit buku")
-    tahun_terbit: int = field(..., description="Tahun terbit buku")
-    stok: int = field(..., ge=0, description="Stok buku yang tersedia")
+    judul: str = Field(..., description="Judul buku")
+    pengarang: str = Field(..., description="Nama pengarang buku")
+    penerbit: str = Field(..., description="Nama penerbit buku")
+    tahun_terbit: int = Field(..., description="Tahun terbit buku")
+    stok: int = Field(..., ge=0, description="Stok buku yang tersedia")
     id_kategori: int
     
 class BukuCreate(BukuBase):
