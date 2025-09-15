@@ -4,7 +4,7 @@ import database
 
 from app.api.v1.anggota import anggota_service  
 from app.models.v1.anggota.anggota import AnggotaCreate, AnggotaResponse, AnggotaUpdate
-from app.models.v1.msg_response import msg 
+from app.models.v1.msg_response.msg import MessageResponse 
 
 router = APIRouter(
     prefix="/anggota",
@@ -26,4 +26,8 @@ def get_anggota(id_anggota: int, db: Session = Depends(database.get_db)):
 @router.put("/{id_anggota}", response_model=AnggotaResponse)
 def update_anggota(id_anggota: int, request: AnggotaUpdate, db: Session = Depends(database.get_db)):
     return anggota_service.update_anggota(id_anggota, request, db)
+
+@router.delete("/{id_anggota}", response_model=MessageResponse)
+def delete_anggota(id_anggota: int, db: Session = Depends(database.get_db)):
+    return anggota_service.delete_anggota(id_anggota, db)
 
