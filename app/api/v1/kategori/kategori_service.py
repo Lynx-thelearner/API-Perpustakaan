@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 import orm_models, database
 
 from app.models.v1.kategori import kategori
+from app.models.v1.msg_response.msg import MessageResponse
+
 
 def create_kategori (request: kategori.KategoriCreate, db:Session):
     new_kategori = orm_models.Kategori(
@@ -41,4 +43,4 @@ def delete_kategori(id_kategori: int, db: Session):
     
     db.delete(kategori)
     db.commit()
-    return {"message": f"Kategori dengan id {id_kategori} berhasil dihapus"}
+    return MessageResponse(message=f"Kategori {kategori.nama_kategori} berhasil dihapus")

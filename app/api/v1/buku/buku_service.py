@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 import orm_models, database
 
 from app.models.v1.buku import buku
+from app.models.v1.msg_response.msg import MessageResponse
+
 
 def create_buku(request: buku.BukuCreate, db:Session):
     new_buku = orm_models.Buku(
@@ -46,5 +48,5 @@ def delete_buku(id_buku: int, db: Session):
     
     db.delete(buku)
     db.commit()
-    return {"message": f"Buku dengan id {id_buku} berhasil dihapus"}
+    return MessageResponse(message=f"Buku dengan id {id_buku} berhasil dihapus")
     

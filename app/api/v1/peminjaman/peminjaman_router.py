@@ -4,7 +4,7 @@ import database
 
 from app.api.v1.peminjaman import peminjaman_service
 from app.models.v1.peminjaman.peminjaman import PeminjamanCreate, PeminjamanResponse, PeminjamanUpdate
-from app.models.v1.msg_response import msg
+from app.models.v1.msg_response.msg import MessageResponse
 
 router = APIRouter(
     prefix="/peminjaman",
@@ -27,6 +27,6 @@ def get_peminjaman(id_peminjaman: int, db: Session = Depends(database.get_db)):
 def update_peminjaman(id_peminjaman: int, request: PeminjamanUpdate, db: Session = Depends(database.get_db)):
     return peminjaman_service.update_peminjaman(id_peminjaman, request, db)
 
-@router.delete("/{id_peminjaman}", response_model=msg.MessageResponse)
+@router.delete("/{id_peminjaman}", response_model=MessageResponse)
 def delete_peminjaman(id_peminjaman: int, db: Session = Depends(database.get_db)):
     return peminjaman_service.delete_peminjaman(id_peminjaman, db)

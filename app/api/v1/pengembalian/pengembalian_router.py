@@ -4,7 +4,7 @@ import database, orm_models
 
 from app.api.v1.pengembalian import pengembalian_service
 from app.models.v1.pengembalian.pengembalian import PengembalianCreate, PengembalianResponse, PengembalianUpdate
-from app.models.v1.msg_response import msg
+from app.models.v1.msg_response.msg import MessageResponse
 
 router = APIRouter(
     prefix="/pengembalian",
@@ -27,6 +27,6 @@ def get_pengembalian(id_pengembalian: int, db: Session = Depends(database.get_db
 def update_pengembalian(id_pengembalian: int, request: PengembalianUpdate, db: Session = Depends(database.get_db)):
     return pengembalian_service.update_pengembalian(id_pengembalian, request, db)
 
-@router.delete("/{id_pengembalian}", response_model=msg.MessageResponse)
+@router.delete("/{id_pengembalian}", response_model=MessageResponse)
 def delete_pengembalian(id_pengembalian: int, db: Session = Depends(database.get_db)):
     return pengembalian_service.delete_pengembalian(id_pengembalian, db)

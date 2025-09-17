@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 import database
 
 from app.models.v1.peminjaman import peminjaman
+from app.models.v1.msg_response.msg import MessageResponse
+
 
 def create_peminjaman(request: peminjaman.PeminjamanCreate, db: Session):
     new_peminjaman = peminjaman.PeminjamanModel(
@@ -46,4 +48,4 @@ def delete_peminjaman(id_peminjaman: int, db: Session):
     
     db.delete(peminjaman)
     db.commit()
-    return {"message": f"Peminjaman dengan id {id_peminjaman} berhasil dihapus"}
+    return MessageResponse(message=f"Peminjaman dengan id {id_peminjaman} berhasil dihapus")

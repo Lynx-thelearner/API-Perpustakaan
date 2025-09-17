@@ -4,7 +4,7 @@ import database
 
 from app.api.v1.petugas import petugas_service  
 from app.models.v1.petugas.petugas import PetugasCreate, PetugasResponse, PetugasUpdate
-from app.models.v1.msg_response import msg 
+from app.models.v1.msg_response.msg import MessageResponse
 
 router = APIRouter(
     prefix="/petugas",
@@ -27,6 +27,6 @@ def get_petugas(id_petugas: int, db: Session = Depends(database.get_db)):
 def update_petugas(id_petugas: int, request: PetugasUpdate, db: Session = Depends(database.get_db)):
     return petugas_service.update_petugas(id_petugas, request, db)
 
-@router.delete("/{id_petugas}", response_model=msg.MessageResponse)
+@router.delete("/{id_petugas}", response_model=MessageResponse)
 def delete_petugas(id_petugas: int, db: Session = Depends(database.get_db)):
     return petugas_service.delete_petugas(id_petugas, db)

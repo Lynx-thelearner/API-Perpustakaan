@@ -17,10 +17,11 @@ class AnggotaBase(BaseModel):
     alamat: str = Field(..., description="Alamat lengkap anggota")
     no_telp: Phone = Field(..., description="Nomor telepon anggota")
     email: EmailStr = Field(..., examples=["user@example.com"], description="Alamat email anggota")
+    
 
 class AnggotaCreate(AnggotaBase):
     """Model untuk membuat data baru"""
-    pass
+    password: str = Field(..., min_length=8, description="Password anggota (minimal 8 karakter)")
 
 class AnggotaResponse(AnggotaBase):
     """Model untuk memberikan response"""
@@ -35,6 +36,7 @@ class AnggotaUpdate(BaseModel):
     alamat: Optional[str] = None
     no_telp: Optional[Phone] = None
     email: Optional[EmailStr] = None
+    password: Optional[str] = Field(None, min_length=8)
     
     class Config:
         from_attributes = True

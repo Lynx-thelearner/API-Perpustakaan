@@ -20,7 +20,7 @@ class PetugasBase(BaseModel):
 
 class PetugasCreate(PetugasBase):
     """Model untuk membuat data baru"""
-    pass
+    password: str = Field(..., description="Masukan Password (Minimum 8 karakter)", min_length=8)
 
 class PetugasResponse(PetugasBase):
     """Model untuk memberikan response"""
@@ -34,6 +34,7 @@ class PetugasUpdate(BaseModel):
     alamat: Optional[str] = None
     no_telp: Optional[Phone] = None
     email: Optional[EmailStr] = None
+    password: Optional[str] = Field(None, min_length=8)
 
     class Config:
         from_attributes = True
