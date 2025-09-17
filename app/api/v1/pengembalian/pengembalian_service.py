@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 import orm_models
 
 from app.models.v1.pengembalian import pengembalian
+from app.models.v1.msg_response.msg import MessageResponse
 
 def create_pengembalian(request: pengembalian.PengembalianCreate, db: Session):
     new_pengembalian = orm_models.Pengembalian(
@@ -43,5 +44,5 @@ def delete_pengembalian(id_pengembalian: int, db: Session):
     
     db.delete(pengembalian)
     db.commit()
-    return {"message": f"Pengembalian dengan id {id_pengembalian} berhasil dihapus"}
+    return MessageResponse(message=f"Pengembalian dengan id {id_pengembalian} telat dihapus")
 

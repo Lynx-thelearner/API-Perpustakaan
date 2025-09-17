@@ -3,6 +3,9 @@ from sqlalchemy.orm import Session
 import orm_models, database
 
 from app.models.v1.petugas import petugas
+from app.models.v1.msg_response.msg import MessageResponse
+from security import hash_password, verify_password
+
 
 
 def create_petugas(request: petugas.PetugasCreate, db: Session):
@@ -10,7 +13,8 @@ def create_petugas(request: petugas.PetugasCreate, db: Session):
         nama=request.nama,
         alamat=request.alamat,
         no_telp=request.no_telp,
-        email=request.email
+        email=request.email,
+        password=hash_password(request.password)
     )
     db.add(new_petugas)
     db.commit()
@@ -31,7 +35,11 @@ def update_petugas(id_petugas: int, request: petugas.PetugasUpdate, db: Session)
     if not petugas:
         raise HTTPException(status_code=404, detail="Petugas not found")
     
-    for key, value in request.dict(exclude_unset=True).items():
+    data = request.dict(exclude_unset=True)
+    if "password" in data and data["password"] is not None:
+        data["password"] = hash_password(data["password"])
+    
+    for key, value in data.items():
         setattr(petugas, key, value)
         
     db.commit()
@@ -45,5 +53,5 @@ def delete_petugas(id_petugas: int, db: Session):
     
     db.delete(petugas)
     db.commit()
-    return {"message": f"Petugas dengan id {id_petugas} berhasil dihapus"}
+    return MessageResponse(message=f"Petugas {petugas.nama} berhasil dihapus")
     
