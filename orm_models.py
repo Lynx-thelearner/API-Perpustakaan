@@ -37,6 +37,7 @@ class Buku(Base):
     penerbit = Column(String, nullable=False)
     tahun_terbit = Column(Integer, nullable=False)
     stok = Column(Integer, nullable=False)
+    cover = Column(String, nullable=True)
     id_kategori = Column(Integer, ForeignKey("kategori.id_kategori"), nullable=False)
     
     kategori = relationship("Kategori", back_populates="buku")
