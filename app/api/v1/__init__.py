@@ -4,6 +4,7 @@ from .kategori import kategori_router
 from .peminjaman import peminjaman_router
 from .pengembalian import pengembalian_router
 from .petugas import petugas_router
+from .auth import auth_router
 
 routers = [
     anggota_router.router,
@@ -12,4 +13,5 @@ routers = [
     peminjaman_router.router,
     pengembalian_router.router,
     petugas_router.router,
+    auth_router.router
 ]
