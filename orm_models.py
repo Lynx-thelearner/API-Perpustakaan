@@ -4,29 +4,27 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Enum
 import enum
 
-class Anggota(Base):
-    __tablename__ = "anggota"
+# --- Enum untuk Role User ---
+class RoleEnum(enum.Enum):
+    anggota = "anggota"
+    petugas = "petugas"
 
-    id_anggota = Column(Integer, primary_key=True, index=True)
+class User(Base):
+    __tablename__ = "user"
+
+    id_user = Column(Integer, primary_key=True, index=True)
     nama = Column(String, nullable=False, index=True)
+    username = Column(String, nullable=False, unique=True, index=True)
     alamat = Column(String, nullable=False)
     no_telp = Column(String, nullable=False)
-    email = Column(String, nullable=False)
+    email = Column(String, nullable=False ,index=True)
     password = Column(String, nullable=False)
+    role = Column(Enum(RoleEnum), nullable=False, default=RoleEnum.anggota)
     
-    peminjaman = relationship("Peminjaman", back_populates="anggota")
-
-class Petugas(Base):
-    __tablename__ = "petugas"
-
-    id_petugas = Column(Integer, primary_key=True, index=True)
-    nama = Column(String, nullable=False, index=True)
-    alamat = Column(String, nullable=False)
-    no_telp = Column(String, nullable=False)
-    email = Column(String, nullable=False)
-    password = Column(String, nullable=False)
-    
-    peminjaman = relationship("Peminjaman", back_populates="petugas")
+     # relasi: user bisa meminjam buku
+    peminjaman = relationship("Peminjaman", back_populates="user", foreign_keys="Peminjaman.id_user")
+    # relasi: user bisa melayani peminjaman (Untuk Petugas)
+    peminjaman_dilayani = relationship("Peminjaman", back_populates="petugas", foreign_keys="Peminjaman.id_petugas")
     
 class Buku(Base):
     __tablename__ = "buku"
@@ -40,7 +38,9 @@ class Buku(Base):
     cover = Column(String, nullable=True)
     id_kategori = Column(Integer, ForeignKey("kategori.id_kategori"), nullable=False)
     
+    # relasi: buku memiliki satu kategori
     kategori = relationship("Kategori", back_populates="buku")
+    # relasi: buku ke peminjaman
     peminjaman = relationship("Peminjaman", back_populates="buku")
     
 class Kategori(Base):
@@ -49,8 +49,10 @@ class Kategori(Base):
     id_kategori = Column(Integer, primary_key=True, index=True)
     nama_kategori = Column(String, nullable=False, index=True)
     
+    # relasi: kategori memiliki banyak buku
     buku = relationship("Buku", back_populates="kategori")
     
+    # Enum untuk status peminjaman
 class StatusEnum(enum.Enum):
     dipinjam = "dipinjam"
     dikembalikan = "dikembalikan"
@@ -60,19 +62,21 @@ class Peminjaman(Base):
     __tablename__ = "peminjaman"
 
     id_peminjaman = Column(Integer, primary_key=True, index=True)
-    id_anggota = Column(Integer, ForeignKey("anggota.id_anggota"), nullable=False)
-    id_petugas = Column(Integer, ForeignKey("petugas.id_petugas"), nullable=False)
-    id_buku = Column(Integer, ForeignKey("buku.id_buku"), nullable=False, index=True)
-    jumlah = Column(Integer, nullable=False)
+    id_user = Column(Integer, ForeignKey("user.id_user"), nullable=False)      # siapa yang pinjam
+    id_petugas = Column(Integer, ForeignKey("user.id_user"), nullable=False)   # siapa yang melayani
+    id_buku = Column(Integer, ForeignKey("buku.id_buku"), nullable=False)
     tgl_pinjam = Column(DATE, nullable=False)
     tgl_kembali = Column(DATE, nullable=True)
-    status = Column(Enum(StatusEnum), nullable=False, default=StatusEnum.dipinjam)
-    
-    anggota = relationship("Anggota", back_populates="peminjaman")
-    petugas = relationship("Petugas", back_populates="peminjaman")
-    pengembalian = relationship("Pengembalian", back_populates="peminjaman", uselist=False)
+
+    # Relasi user yang minjam
+    user = relationship("User", back_populates="peminjaman", foreign_keys=[id_user])
+    # Relasi user yang melayani (petugas)
+    petugas = relationship("User", back_populates="peminjaman_dilayani", foreign_keys=[id_petugas])
     buku = relationship("Buku", back_populates="peminjaman")
-    
+    # Relasi ke pengembalian (satu ke satu)
+    pengembalian = relationship("Pengembalian", back_populates="peminjaman", uselist=False)
+
+
 class Pengembalian(Base):
     __tablename__ = "pengembalian"
 
@@ -81,4 +85,5 @@ class Pengembalian(Base):
     tgl_kembali = Column(DATE, nullable=False, index=True)
     denda = Column(Integer, nullable=False)
     
+    # Relasi ke peminjaman
     peminjaman = relationship("Peminjaman", back_populates="pengembalian")

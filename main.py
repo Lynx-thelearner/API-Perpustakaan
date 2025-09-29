@@ -6,12 +6,11 @@ orm_models.Base.metadata.create_all(bind=database.engine)
 from sqlalchemy.orm import Session
 
 from app.models.v1 import (
-    AnggotaCreate, AnggotaResponse, AnggotaUpdate,
+    UserCreate, UserResponse, UserUpdate,
     BukuCreate, BukuResponse, BukuUpdate,
     KategoriCreate, KategoriResponse, KategoriUpdate,
     PeminjamanCreate, PeminjamanResponse, PeminjamanUpdate,
     PengembalianCreate, PengembalianResponse, PengembalianUpdate,
-    PetugasCreate, PetugasResponse, PetugasUpdate,
     MessageResponse,
     Token, TokenPayload
 )

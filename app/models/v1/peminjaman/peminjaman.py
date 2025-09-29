@@ -1,6 +1,12 @@
 from pydantic import BaseModel, Field
 from typing import Optional
 from datetime import date
+from enum import Enum
+
+class StatusEnum(str, Enum):
+    dipinjam = "dipinjam"
+    dikembalikan = "dikembalikan"
+    hilang = "hilang"
 
 class PeminjamanBase(BaseModel):
     """"Model awal peminjaman"""
@@ -10,7 +16,7 @@ class PeminjamanBase(BaseModel):
     jumlah: int = Field(..., gt=0, description="Jumlah buku yang dipinjam")
     tgl_pinjam: date 
     tgl_kembali: date | None = None
-    status: str
+    status: StatusEnum = Field(..., description="Status peminjaman")
     
 class PeminjamanCreate(PeminjamanBase):
     """"Model untuk membuat data baru"""
@@ -31,7 +37,7 @@ class PeminjamanUpdate(BaseModel):
     jumlah: Optional[int] = None
     tgl_pinjam: Optional[date] = None
     tgl_kembali: Optional[date] = None
-    status: Optional[str] = None
+    status: Optional[StatusEnum] = None
     
     class Config:
         from_attributes = True

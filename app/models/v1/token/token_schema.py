@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional
 
 class Token(BaseModel):
@@ -8,6 +8,11 @@ class Token(BaseModel):
 
 class TokenPayload(BaseModel):
     """Isi token setelah di-decode"""
-    sub: Optional[str] = None   # biasanya user_id atau username
-    role: Optional[str] = None  # kalau mau bedain anggota/petugas
+    sub: Optional[str] = None   # user_id atau email
+    username: Optional[str] = None # username
+    role: Optional[str] = None  # anggota/petugas
     exp: Optional[int] = None   # expiry time
+    
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str

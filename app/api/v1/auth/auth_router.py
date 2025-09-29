@@ -1,15 +1,14 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_db
-from app.api.v1.auth.auth_service import login_anggota, login_petugas
-from app.models.v1.token.token_schema import Token
+from app.models.v1.user.user import UserRegister
+from app.api.v1.auth import auth_service
+from app.models.v1.token.token_schema import Token, LoginRequest
+from fastapi.security import OAuth2PasswordRequestForm
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
-@router.post("/login_petugas", response_model=Token)
-def login_petugas_endpoint(nama: str, password: str, db: Session = Depends(get_db)):
-    return login_petugas(db, nama, password)
+@router.post("/login", response_model=Token)
+def login_endpoint(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    return auth_service.login_user(db, form_data.username, form_data.password)
 
-@router.post("/login_anggota", response_model=Token)
-def login_anggota_endpoint(nama: str, password: str, db: Session = Depends(get_db)):
-    return login_anggota(db, nama, password)

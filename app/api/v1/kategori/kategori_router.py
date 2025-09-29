@@ -5,6 +5,7 @@ import database
 from app.api.v1.kategori import kategori_service
 from app.models.v1.kategori.kategori import KategoriCreate, KategoriResponse, KategoriUpdate
 from app.models.v1.msg_response.msg import MessageResponse 
+from security import require_role, get_current_user
 
 
 router = APIRouter(
@@ -12,7 +13,7 @@ router = APIRouter(
     tags=["kategori"]
 )
 
-@router.post("/", response_model=KategoriResponse)
+@router.post("/", response_model=KategoriResponse, dependencies=[Depends(require_role("petugas"))])
 def create_kategori(request: KategoriCreate, db: Session = Depends(database.get_db)):
     return kategori_service.create_kategori(request, db)
 
@@ -24,10 +25,10 @@ def get_all_kategori(db: Session = Depends(database.get_db)):
 def get_kategori(id_kategori: int, db: Session = Depends(database.get_db)):
     return kategori_service.get_kategori(id_kategori, db)
 
-@router.put("/{id_kategori}", response_model=KategoriResponse)
+@router.put("/{id_kategori}", response_model=KategoriResponse, dependencies=[Depends(require_role("petugas"))])
 def update_kategori(id_kategori: int, request: KategoriUpdate, db: Session = Depends(database.get_db)):
     return kategori_service.update_kategori(id_kategori, request, db)
 
-@router.delete("/{id_kategori}", response_model=MessageResponse)
+@router.delete("/{id_kategori}", response_model=MessageResponse, dependencies=[Depends(require_role("petugas"))])
 def delete_kategori(id_kategori: int, db: Session = Depends(database.get_db)):
     return kategori_service.delete_kategori(id_kategori, db)
