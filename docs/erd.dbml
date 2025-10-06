@@ -1,0 +1,48 @@
+Table anggota {
+  id_anggota int [pk, increment]
+  nama varchar
+  alamat text
+  nomor_telpon varchar
+  email varchar
+}
+
+table petugas {
+  id_petugas int [pk, increment]
+  nama varchar
+  alamat text 
+  nomor_telpon varchar
+  email varchat
+}
+
+table kategori {
+  id_kategori int [pk, increment]
+  nama_kategori varchar
+}
+
+table buku {
+  id_buku int [pk, increment]
+  judul varchar
+  penulis varchar
+  penerbit  varchar
+  tahun_terbit int 
+  stok int
+  id_kategori int [ref: > kategori.id_kategori]
+}
+
+table peminjaman {
+  id_peminjaman int [pk, increment]
+  id_anggota int [ref: > anggota.id_anggota]
+  id_petugas int [ref: > petugas.id_petugas]
+  id_buku int [ref: > buku.id_buku]
+  jumlah int
+  tanggal_pinjam date
+  tanggal_jatuh_tempo date
+  status varchar
+}
+
+table pengembalian {
+  id_pengembalian int [pk, increment]
+  id_peminjaman int [ref: > peminjaman.id_peminjaman]
+  tanggal_kembali date
+  denda decimal
+}
