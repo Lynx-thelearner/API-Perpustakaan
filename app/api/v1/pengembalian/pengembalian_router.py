@@ -5,7 +5,7 @@ import database, orm_models
 from app.api.v1.pengembalian import pengembalian_service
 from app.models.v1.pengembalian.pengembalian import PengembalianCreate, PengembalianResponse, PengembalianUpdate
 from app.models.v1.msg_response.msg import MessageResponse
-from security import require_role, get_current_user
+from security.security import require_role, get_current_user
 
 
 router = APIRouter(

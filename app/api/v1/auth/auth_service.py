@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from orm_models import User
 from app.models.v1.token.token_schema import Token
-from security import verify_password
-from vevn.auth import create_access_token
+from security.security import verify_password
+from security.auth import create_access_token
 
 def aunthenticate_user(db: Session, username: str, password: str) -> User:
     """Authenticate User by username and Password."""

@@ -5,7 +5,7 @@ import database
 from app.api.v1.kategori import kategori_service
 from app.models.v1.kategori.kategori import KategoriCreate, KategoriResponse, KategoriUpdate
 from app.models.v1.msg_response.msg import MessageResponse 
-from security import require_role, get_current_user
+from security.security import require_role, get_current_user
 
 
 router = APIRouter(

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 import orm_models, database
 from app.models.v1.user import user
 from app.models.v1.msg_response.msg import MessageResponse
-from security import hash_password, verify_password
+from security.security import hash_password, verify_password
 
 
 def create_user(request: user.UserCreate, db: Session):
@@ -50,6 +50,12 @@ def delete_user(id_user: int, db: Session):
     user = db.query(orm_models.User).filter(orm_models.User.id_user == id_user).first()
     if not user:
         raise HTTPException(status_code=404, detail="user not found")
+    
+    peminjaman_aktif = db.query(orm_models.Peminjaman).filter(
+        orm_models.Peminjaman.id_user == id_user, orm_models.Peminjaman.status == orm_models.StatusEnum.dipinjam
+    ).first()
+    if peminjaman_aktif:
+        raise HTTPException(status_code=400, detail="user memiliki peminjaman aktif dan tidak dapat dihapus")
     
     db.delete(user)
     db.commit()

@@ -4,6 +4,7 @@ from app.api.v1.kategori import kategori_router
 from app.api.v1.peminjaman import peminjaman_router
 from app.api.v1.pengembalian import pengembalian_router
 from app.api.v1.auth import auth_router
+from app.api.v1.request_peminjaman import request_peminjaman_router
 
 routers = [
     user_router.router,

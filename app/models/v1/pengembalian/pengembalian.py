@@ -7,7 +7,7 @@ class PengembalianBase(BaseModel):
     """"Model awal pengembalian"""
     id_peminjaman: int
     tgl_kembali: date
-    denda: Decimal
+    denda: float
     
 class PengembalianCreate(PengembalianBase):
     """Model untuk membuat data baru"""
@@ -23,6 +23,6 @@ class PengembalianUpdate(BaseModel):
     """"Model untuk mengupdate data"""
     id_peminjaman: Optional[int] = None
     tgl_kembali: Optional[date] = None
-    denda: Optional[Decimal] = None
+    denda: Optional[float] = None
     
     model_config = ConfigDict(from_attributes=True)

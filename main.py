@@ -12,7 +12,8 @@ from app.models.v1 import (
     PeminjamanCreate, PeminjamanResponse, PeminjamanUpdate,
     PengembalianCreate, PengembalianResponse, PengembalianUpdate,
     MessageResponse,
-    Token, TokenPayload
+    Token, TokenPayload,
+    RequestPeminjamanCreate, RequestPeminjamanResponse, RequestPeminjamanUpdate, RequestPeminjaman
 )
 
 from app.api.v1 import routers

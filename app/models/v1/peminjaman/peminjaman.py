@@ -39,3 +39,33 @@ class PeminjamanUpdate(BaseModel):
     status: Optional[StatusEnum] = None
     
     model_config = ConfigDict(from_attributes=True)
+    
+class EnumRequestStatus(str, Enum):
+    menunggu = "menunggu"
+    disetujui = "disetujui"
+    ditolak = "ditolak"
+    
+class RequestPeminjaman(BaseModel):
+    """"Model untuk request peminjaman"""
+    id_user: int
+    id_buku: int
+    jumlah: int = Field(..., gt=0, description="Jumlah buku yang dipinjam")
+    tgl_request: date
+    status: EnumRequestStatus = Field(..., description="Status request peminjaman")
+
+class RequestPeminjamanCreate(RequestPeminjaman):
+    pass
+
+class RequestPeminjamanResponse(RequestPeminjaman):
+    id_request: int
+    
+    model_config = ConfigDict(from_attributes=True)
+    
+class RequestPeminjamanUpdate(BaseModel):
+    id_user: Optional[int] = None
+    id_buku: Optional[int] = None
+    jumlah: Optional[int] = None
+    tgl_request: Optional[date] = None
+    status: Optional[EnumRequestStatus] = None
+    
+    model_config = ConfigDict(from_attributes=True)

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 import database
-from security import require_role, get_current_user
+from security.security import require_role, get_current_user
 from app.api.v1.user import user_service  
 from app.models.v1.user.user import UserCreate, UserResponse, UserUpdate, UserRegister
 from app.models.v1.msg_response.msg import MessageResponse 

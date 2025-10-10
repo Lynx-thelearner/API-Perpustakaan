@@ -5,7 +5,7 @@ import database
 from app.api.v1.buku import buku_service
 from app.models.v1.buku.buku import BukuCreate, BukuResponse, BukuUpdate
 from app.models.v1.msg_response import msg
-from security import require_role, get_current_user
+from security.security import require_role, get_current_user
 
 router = APIRouter(
     prefix="/buku",
