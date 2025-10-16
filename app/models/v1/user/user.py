@@ -1,6 +1,9 @@
 from pydantic import BaseModel, Field, EmailStr, StringConstraints, ConfigDict
 from typing import Optional, Annotated
 from enum import Enum
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
+
 
 # Tipe data untuk nomor telepon
 Phone = Annotated[
@@ -32,7 +35,7 @@ class UserCreate(UserBase):
 
 class UserResponse(UserBase):
     """Model untuk memberikan response"""
-    id_user: int
+    id_user: uuid.UUID
     
     model_config = ConfigDict(from_attributes=True)
 

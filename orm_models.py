@@ -3,6 +3,8 @@ from sqlalchemy.orm import relationship
 from database import Base
 import enum
 from datetime import date
+import uuid
+from sqlalchemy.dialects.postgresql import UUID
 
 
 # --- Enum untuk Role User ---
@@ -14,7 +16,7 @@ class RoleEnum(enum.Enum):
 class User(Base):
     __tablename__ = "user"
 
-    id_user = Column(Integer, primary_key=True, index=True)
+    id_user = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     nama = Column(String, nullable=False, index=True)
     username = Column(String, nullable=False, unique=True, index=True)
     alamat = Column(String, nullable=False)
@@ -72,8 +74,8 @@ class Peminjaman(Base):
     __tablename__ = "peminjaman"
 
     id_peminjaman = Column(Integer, primary_key=True, index=True)
-    id_user = Column(Integer, ForeignKey("user.id_user"), nullable=False)       # siapa yang pinjam
-    id_petugas = Column(Integer, ForeignKey("user.id_user"), nullable=True)     # siapa yang melayani
+    id_user = Column(UUID(as_uuid=True), ForeignKey("user.id_user"), nullable=False)       # siapa yang pinjam
+    id_petugas = Column(UUID(as_uuid=True), ForeignKey("user.id_user"), nullable=True)     # siapa yang melayani
     id_buku = Column(Integer, ForeignKey("buku.id_buku"), nullable=False)
     jumlah = Column(Integer, nullable=False)
     tgl_pinjam = Column(DATE, nullable=False, default=date.today)
@@ -113,7 +115,7 @@ class RequestPinjam(Base):
     __tablename__ = "request_pinjam"
 
     id_request = Column(Integer, primary_key=True, index=True)
-    id_user = Column(Integer, ForeignKey("user.id_user"), nullable=False)
+    id_user = Column(UUID(as_uuid=True), ForeignKey("user.id_user"), nullable=False)
     id_buku = Column(Integer, ForeignKey("buku.id_buku"), nullable=False)
     jumlah = Column(Integer, nullable=False, default=1)
     tgl_request = Column(DATE, nullable=False, default=date.today)
