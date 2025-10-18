@@ -5,12 +5,12 @@ class Settings(BaseSettings):
     """Buat konfigurasi dasar env"""
     
     #Database settings
-    SUPABASE_POOLER: str
-    SUPABASE_DIRECT: str
+    SUPABASE_POOLER: str = "postgresql+asyncpg://user:password@localhost:5432/mydatabase"
+    SUPABASE_DIRECT: str = "postgresql+asyncpg://user:password@localhost:5432/mydatabase"
     
     #JWT settings
-    SECRET_KEY: str
-    ALGORITHM: str
+    SECRET_KEY: str = "BEHRAHASIABANGET12345"
+    ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     
     #App settings
@@ -25,3 +25,8 @@ class Settings(BaseSettings):
         env_file_encoding = "utf-8"
 
 settings = Settings()
+
+if not settings.SUPABASE_POOLER:
+    print("⚠️  [CONFIG WARNING] SUPABASE_POOLER belum di-set di .env.")
+if not settings.SECRET_KEY or settings.SECRET_KEY == "BEHRAHASIABANGET12345":
+    print("⚠️  [CONFIG WARNING] SECRET_KEY masih default, ganti di .env untuk production!")
